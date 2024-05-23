@@ -1,0 +1,2 @@
+export const ALERTERROR = "ALERTERROR"
+export const CLEARERROR = "CLEARERROR"
