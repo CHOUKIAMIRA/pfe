@@ -30,21 +30,22 @@ function FavorisVendeur() {
     dispatch(updateuser(user._id, { favoris: updatedFavoris }));
   };
 
+
   return (
     <div>
+     
       <div className="pos2">
-        <div className="cont-pro-panier" >
-          <div className="panier1" >
-            <h3
-              style={{
-                fontFamily: "'URW Chancery L', cursive",
-                marginBottom: "30px",
-              }}
-            >
-              Liste d'envies ({favoris.length})
-            </h3>
-            <hr />
-            {favoris.length === 0 ? (
+        <h3
+          style={{
+            fontFamily: "'URW Chancery L', cursive",
+            textAlign: "center",
+            margin: "30px 0",
+          }}
+        >
+          Liste d'envies ({user?.favoris?.length})
+        </h3>
+        <div className="cont-pro-panier">
+        {favoris.length === 0 ? (
               
               <div style={{ textAlign: "center" }}>
                 <img
@@ -58,58 +59,58 @@ function FavorisVendeur() {
                   <button className="button">Nos Boutiques</button>
                 </Link>
               </div>
-            ) : (
-              favoris.map((e) => (
-                
-                <div key={e._id} >
-                  <div className="card" >
-                    <h6
+            ):
+            favoris.map((e) => (
+            <div key={e._id}>
+              <div className="card">
+                <h6
+                  style={{
+                    backgroundColor: "black",
+                    color: "white",
+                    textAlign: "center",
+                  }}
+                >
+                  {e?.userId?.nomboutique}
+                </h6>
+                <img
+                  src={e.image[0]}
+                  alt="product"
+                  style={{ height: "150px" }}
+                />
+                <div style={{ position: "absolute", top: "20px", left: "110px" }}>
+                  {e.promo ? (
+                    <h5
                       style={{
-                        backgroundColor: "black",
+                        backgroundColor: "red",
                         color: "white",
-                        textAlign: "center",
+                        borderRadius: "20px",
+                        margin: "4px 0 0 25px",
+                        padding: "0 5px 0 5px",
                       }}
                     >
-                      {e?.userId?.nomboutique}
-                    </h6>
-                    <img
-                      src={e.image[0]}
-                      alt="product"
-                      style={{ height: "150px" }}
-                    />
-                    <div style={{ position: "absolute", top: "20px", left: "110px" }}>
-                      {e.promo ? (
-                        <h5
-                          style={{
-                            backgroundColor: "red",
-                            color: "white",
-                            borderRadius: "20px",
-                            margin: "4px 0 0 25px",
-                            padding: "0 5px 0 5px",
-                          }}
-                        >
-                          {e.promo} %
-                        </h5>
-                      ) : null}
-                    </div>
-                    <h5>{e.price} dt</h5>
-                    <div className="card__content">
-                      <p className="card__title">{e.title}</p>
-                      <p className="card__description">{e.description}</p>
-                    </div>
-                  </div>
-                  <div
-                    className="card-p"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginTop: "3px",
-                      border: "1px #edecea solid",
-                    }}
-                  >
-                    <div>
-                      <button
+                      {e.promo} %
+                    </h5>
+                  ) : null}
+                </div>
+                <h5>{e.price} dt</h5>
+                <div className="card__content">
+                  <p className="card__title">{e.title}</p>
+                  <p className="card__description">{e.description}</p>
+                </div>
+              </div>
+              <div
+                className="card-p"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: "5px",
+                  border: "1px #edecea solid",
+                }}
+              >
+              
+                  <div>
+                  <button
                         style={{ background: "transparent", border: "none" }}
                         onClick={() => removeFromFavoris(e._id)}
                       >
@@ -126,11 +127,9 @@ function FavorisVendeur() {
                     <div>
                       <Link to={`/detail/${e._id}`}>detail</Link>
                     </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <br />

@@ -5,75 +5,56 @@ import { FaRegHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/actions/actionProduct";
 import { getcurrent, updateuser } from "../../redux/actions/action";
+import { toast } from "react-toastify";
 
 function ProdFilleVendeur({search}) {
   const dispatch = useDispatch();
 
-  const msg = useSelector((state) => state.allproducts.msg);
   const products = useSelector((state) => state.allproducts.products);
   const user = useSelector((state) => state.users.user);
 
   const [panier, setPanier] = useState(user.panier || []);
   const [favoris, setFavoris] = useState(user.favoris || []);
-  const [msgExist, setMsgExist] = useState("");
+  
 
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getcurrent());
   }, [dispatch]);
 
-  
   const productsfille = products?.filter(e => 
     e.categorie === "fille" && e.title.toLowerCase().includes(search.toLowerCase())
   );
+  
+  
+
   const addToCart = (product) => {
-    if (panier.some((item) => item._id === product._id)) {
-      setMsgExist("Le produit existe déjà dans le panier");
-      setTimeout(() => {
-        setMsgExist("");
-      }, 3000);
+    if (user?.panier?.some(item => item._id === product._id)) {
+     toast.error("Le produit existe déjà dans le panier")
+      
     } else {
       const updatedPanier = [...panier, product];
-    
       setPanier(updatedPanier);
       dispatch(updateuser(user._id, { panier: updatedPanier }));
-      setMsgExist("");
+     
     }
   };
 
   const addToFavoris = (product) => {
-    if (favoris.some((item) => item._id === product._id)) {
-      setMsgExist("Le produit existe déjà dans les favoris");
-      setTimeout(() => {
-        setMsgExist("");
-      }, 3000);
-    } else {
+    if (user?.favoris?.some(item => item._id === product._id)) {
+      toast.error("Le produit existe déjà dans le favoris")
+    } 
+    else {
       const updatedFavoris = [...favoris, product];
       setFavoris(updatedFavoris);
       dispatch(updateuser(user._id, { favoris: updatedFavoris }));
-      setMsgExist("");
+      
     }
   };
 
   return (
     <div>
-      {msgExist && (
-        <div
-          style={{
-            position: "fixed",
-            top: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            backgroundColor: "red",
-            color: "white",
-            padding: "10px 20px",
-            borderRadius: "5px",
-            zIndex: 1000,
-          }}
-        >
-          {msgExist}
-        </div>
-      )}
+     
       <div className="pos2">
         <h3
           style={{
@@ -102,13 +83,7 @@ function ProdFilleVendeur({search}) {
                   alt="product"
                   style={{ height: "150px" }}
                 />
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "20px",
-                    left: "110px",
-                  }}
-                >
+                <div style={{ position: "absolute", top: "20px", left: "110px" }}>
                   {e.promo ? (
                     <h5
                       style={{
@@ -152,9 +127,7 @@ function ProdFilleVendeur({search}) {
                       style={{ background: "transparent", border: "none" }}
                       onClick={() => addToCart(e)}
                     >
-                      <FiShoppingCart
-                        style={{ fontSize: "25px", color: "red" }}
-                      />
+                      <FiShoppingCart style={{ fontSize: "25px", color: "red" }} />
                     </button>
                   </div>
                 ) : (
@@ -164,14 +137,14 @@ function ProdFilleVendeur({search}) {
                     </Link>
                     &nbsp; &nbsp;&nbsp;
                     <Link to="/log-in">
-                      <FiShoppingCart
-                        style={{ fontSize: "25px", color: "red" }}
-                      />
+                      <FiShoppingCart style={{ fontSize: "25px", color: "red" }} />
                     </Link>
                   </div>
                 )}
                 <div>
-                  <Link to={`/detail/${e._id}`}>detail</Link>
+                  <Link to={`/detail/${e._id}`}>
+                    detail
+                  </Link>
                 </div>
               </div>
             </div>

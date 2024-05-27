@@ -33,9 +33,7 @@ function ContactVendeur() {
       <div className='contactus'>
         <img src={contact} style={{width:"1532px",height:"725px"}} alt="Contact" />
       </div>
-      <div style={{position:"absolute",top:0,width:"100%"}}>
-        <SecondeNav />
-      </div>
+      
 
       <div style={{
         position: "relative", top: "300px", left: "750px", backgroundColor: "#f1e9ee",

@@ -15,7 +15,7 @@ function ProdHommeVendeur({search}) {
 
   const [panier, setPanier] = useState(user.panier || []);
   const [favoris, setFavoris] = useState(user.favoris || []);
-  const [msgExist, setMsgExist] = useState("");
+  
 
   useEffect(() => {
     dispatch(getProducts());
@@ -29,25 +29,26 @@ function ProdHommeVendeur({search}) {
   
 
   const addToCart = (product) => {
-    if (panier.some(item => item._id === product._id)) {
+    if (user?.panier?.some(item => item._id === product._id)) {
      toast.error("Le produit existe déjà dans le panier")
       
     } else {
       const updatedPanier = [...panier, product];
       setPanier(updatedPanier);
       dispatch(updateuser(user._id, { panier: updatedPanier }));
-      setMsgExist("");
+   
     }
   };
 
   const addToFavoris = (product) => {
-    if (favoris.some(item => item._id === product._id)) {
+    if (user?.favoris?.some(item => item._id === product._id)) {
       toast.error("Le produit existe déjà dans le favoris")
-    } else {
+    } 
+    else {
       const updatedFavoris = [...favoris, product];
       setFavoris(updatedFavoris);
       dispatch(updateuser(user._id, { favoris: updatedFavoris }));
-      setMsgExist("");
+      
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FaRegCreditCard } from "react-icons/fa";
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { RiFolderSharedFill } from "react-icons/ri";
 import { FiFolderPlus } from "react-icons/fi";
 import { LuUser2 } from "react-icons/lu";
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Accordion from 'react-bootstrap/Accordion';
 import { getusers } from '../../redux/actions/action';
 
-function Commande() {
+function Achat() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function Commande() {
 
   const user = useSelector(state => state.users.user);
   const handellogout=()=>{
-    dispatch(logout(Navigate))
+    dispatch(logout(navigate))
   }
 
   return (
@@ -56,11 +56,11 @@ function Commande() {
                 <FiFolderPlus style={{ width: "30px", height: "30px" }} />
                 &nbsp; Mes informations
               </Link><br />
-              <Link to="/profil/commande" className="bg-menu-p" style={{ position: "relative" }}>
+              <Link to="/profil/commande" className="bg-menu" style={{ position: "relative" }}>
                 <FaRegCreditCard style={{ width: "30px", height: "30px" }} />
                 &nbsp; Mes achats&nbsp;&nbsp;&nbsp; <span className="nb-commande">{user?.commandeachteur?.length}</span>
               </Link> <br />
-              {user?.commandevendeur?.length!==0 ? <Link to="/profil/achat" className="bg-menu" style={{ position: "relative" }}>
+              {user?.commandevendeur?.length!==0 ? <Link to="/profil/achat" className="bg-menu-p" style={{ position: "relative" }}>
                 <FaRegCreditCard style={{ width: "30px", height: "30px" }} />
                 &nbsp; Mes commandes <span className="nb-commande">{user?.commandevendeur?.length}</span>
               </Link>:null}
@@ -78,18 +78,20 @@ function Commande() {
           </div>
           <div style={{ width: "900px" }}>
             <br />
-            <h3 style={{ color: "#333", marginLeft: "15px" }}>Mes achats (  {user.commandeachteur.length}  )</h3><br />
+            <h3 style={{ color: "#333", marginLeft: "15px" }}>Mes commandes vendus (  {user.commandevendeur.length}  )</h3><br />
             <Accordion defaultActiveKey="0">
-              {user.commandeachteur.map((e, index) => (
+              {user.commandevendeur.map((e, index) => (
                 <Accordion.Item eventKey={index.toString()} key={e._id}>
-                  <Accordion.Header>{e.title}</Accordion.Header>
+                  <Accordion.Header>Produit  </Accordion.Header>
                   <Accordion.Body>
+                 
+                  
                     <div style={{display:"flex",justifyContent:'center',gap:"50px",alignItems:"center"}} >
-                      <img src={e?.image[0]} alt={e.title} style={{ width: "150px", height: "150px" }} />
-                      <h4>{e.promo ? e.price - (e.price * e.promo) / 100 : e.price} dt</h4>
-                      <h4>{e?.userId?.nomboutique}</h4>
-                      <h4>{e?.userId?.phone}</h4>
-                      <h4>{e?.userId?.adresseboutique}</h4>
+                      <img src={e?.productInfo.image[0]} alt={e.productInfo.title} style={{ width: "150px", height: "150px" }} />
+                      <h4>{e.productInfo.promo ? e.productInfo.price - (e.productInfo.price * e.productInfo.promo) / 100 : e.productInfo.price} dt</h4>
+                      <h4>{e.userId.np}</h4> 
+                      <h4>{e.userId.phone}</h4> 
+                     <h4> {e.userId.adresse}</h4> 
                     </div>
                   </Accordion.Body>
                 </Accordion.Item>
@@ -102,4 +104,4 @@ function Commande() {
   );
 }
 
-export default Commande;
+export default Achat;

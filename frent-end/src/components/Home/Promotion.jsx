@@ -14,7 +14,7 @@ function Promotion() {
 <h3 style={{marginLeft:"500px"}}>Découvrez nos offres spéciales dans l'annonce</h3>
 <br/><br/>
 
-<Link to="/user">
+<Link to="/promo">
 <button className='button' style={{marginLeft:"700px",backgroundColor:"black"}}>découvrir</button>
 </Link>
 </div>

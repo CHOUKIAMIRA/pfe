@@ -45,7 +45,7 @@ console.log(user)
         <br />
         <br />
       </div>
-      {user.np?
+      {user?.np?
         <button
           style={{ position: "absolute", top: "150px", right: "400px" }}
           className="button decal"

@@ -27,6 +27,8 @@ import ExempleUser from "./components/user-vendeur/ExempleUser";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Commande from "./components/user-vendeur/Commande";
 import { useState } from "react";
+import Promo from "./components/user-vendeur/Promo";
+import Achat from "./components/user-vendeur/Achat";
 
 
 function App() {
@@ -43,10 +45,11 @@ function App() {
       <Route path="/" element={<AcceuilUser />} /> 
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/log-in" element={<LogIn />} />
+        <Route path="/promo" element={<Promo search={search}/>} />
         <Route path="/product-homme" element={<ProdHommeVendeur search={search}/>} />
-        <Route path="/product-femme" element={<ProdFemmeVendeur />} />
-        <Route path="/product-fille" element={<ProdFilleVendeur />} />
-        <Route path="/product-garcon" element={<ProdGarconVendeur />} />
+        <Route path="/product-femme" element={<ProdFemmeVendeur search={search}/>} />
+        <Route path="/product-fille" element={<ProdFilleVendeur search={search}/>} />
+        <Route path="/product-garcon" element={<ProdGarconVendeur search={search}/>} />
         <Route path="/profil/AjouterAnnonce" element={<ProtectedRoute><AjouterAnnonce /></ProtectedRoute>} />
         <Route path="/profil/Securite" element={<ProtectedRoute><Securite /></ProtectedRoute>} />
         <Route path="/profil/MesAnnonces" element={<ProtectedRoute><MesAnnonces /></ProtectedRoute>} />
@@ -54,11 +57,12 @@ function App() {
         <Route path="/profil/panier/" element={<ProtectedRoute><PanierVendeur /></ProtectedRoute>} />
         <Route path="/profil/favoris/" element={<ProtectedRoute><FavorisVendeur /></ProtectedRoute>} />
         <Route path="/profil/commande/" element={<ProtectedRoute><Commande /></ProtectedRoute>} />
+        <Route path="/profil/achat/" element={<ProtectedRoute><Achat /></ProtectedRoute>} />
        <Route path="/user/contact" element={<ContactVendeur />} />
         <Route path="/boutique" element={<Boutiques />} />
         <Route path="/detail/:id" element={<DetailProd />} /> 
         <Route path="/voirboutique/:id" element={<VoirBoutique />} />
-        <Route path="/all-products" element={<AllProducts />} />
+        <Route path="/all-products" element={<AllProducts search={search}/>} />
         <Route path='/profil' element={
         <ProtectedRoute>
         <ProfilUser />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaRegCreditCard } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { RiFolderSharedFill } from "react-icons/ri";
 import { FiFolderPlus } from "react-icons/fi";
 import { LuUser2 } from "react-icons/lu";
@@ -30,7 +30,7 @@ function AjouterAnnonce() {
   const msg = useSelector(state => state.allproducts.msg);
 
   const handellogout = () => {
-    dispatch(logout());
+    dispatch(logout(Navigate));
   };
 console.log(msg)
   
@@ -106,8 +106,12 @@ console.log(msg)
               
               <Link to="/profil/commande" className="bg-menu" style={{ position: "relative" }}>
                 <FaRegCreditCard style={{ width: "30px", height: "30px" }} />
-                &nbsp; Mes commandes <span className="nb-commande">{user?.commandevendeur?.length}</span>
+                &nbsp; Mes achats <span className="nb-commande">{user?.commandeachteur?.length}</span>
               </Link><br/>
+              {user?.commandevendeur?.length!==0 ? <Link to="/profil/achat" className="bg-menu" style={{ position: "relative" }}>
+                <FaRegCreditCard style={{ width: "30px", height: "30px" }} />
+                &nbsp; Mes commandes <span className="nb-commande">{user?.commandevendeur?.length}</span>
+              </Link>:null}
               <Link to="/profil/securite" className='bg-menu'><GrShieldSecurity style={{ width: "30px", height: "30px" }} />&nbsp; Sécurité</Link><br />
               <Link className='bg-menu' onClick={handellogout}><IoIosLogOut style={{ width: "30px", height: "30px" }} />&nbsp; Déconnexion</Link><br />
             </div>

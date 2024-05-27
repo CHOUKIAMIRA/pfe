@@ -7,50 +7,50 @@ import { getProducts } from "../../redux/actions/actionProduct";
 import { getcurrent, updateuser } from "../../redux/actions/action";
 import { toast } from "react-toastify";
 
-function AllProducts({search}) {
+function Promo({search}) {
   const dispatch = useDispatch();
 
   const products = useSelector((state) => state.allproducts.products);
   const user = useSelector((state) => state.users.user);
-console.log(user)
-  const [panier, setPanier] = useState(user?.panier||[] );
-  const [favoris, setFavoris] = useState(user?.favoris||[] );
-  
+
+  const [panier, setPanier] = useState(user.panier || []);
+  const [favoris, setFavoris] = useState(user.favoris || []);
+  const [msgExist, setMsgExist] = useState("");
 
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getcurrent());
-  }, [dispatch,panier]);
+  }, [dispatch]);
 
-  const allproducts = products?.filter(e => 
-    e.title.toLowerCase().includes(search.toLowerCase())
+  const promo = products?.filter(e => 
+    e?.promo >= 50 && e?.title?.toLowerCase().includes(search.toLowerCase())
   );
   
   
 
   const addToCart = (product) => {
-    if (panier?.some(item => item._id === product._id)) {
+    if (user?.panier?.some(item => item._id === product._id)) {
      toast.error("Le produit existe déjà dans le panier")
       
     } else {
       const updatedPanier = [...panier, product];
       setPanier(updatedPanier);
       dispatch(updateuser(user._id, { panier: updatedPanier }));
-      
+      setMsgExist("");
     }
   };
 
   const addToFavoris = (product) => {
-    if (favoris?.some(item => item._id === product._id)) {
+    if (user?.favoris?.some(item => item._id === product._id)) {
       toast.error("Le produit existe déjà dans le favoris")
-    } else {
+    } 
+    else {
       const updatedFavoris = [...favoris, product];
       setFavoris(updatedFavoris);
       dispatch(updateuser(user._id, { favoris: updatedFavoris }));
-      
+      setMsgExist("");
     }
   };
-
   return (
     <div>
      
@@ -62,10 +62,10 @@ console.log(user)
             margin: "30px 0",
           }}
         >
-          Tous les produits
+          Tous les produits Hommes
         </h3>
         <div className="cont-pro-panier">
-          {allproducts?.map((e) => (
+          {promo?.map((e) => (
             <div key={e._id}>
               <div className="card">
                 <h6
@@ -159,4 +159,4 @@ console.log(user)
   );
 }
 
-export default AllProducts
+export default Promo;

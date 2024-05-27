@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { FaRegCreditCard } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { RiFolderSharedFill } from "react-icons/ri";
 import { FiFolderPlus } from "react-icons/fi";
 import { LuUser2 } from "react-icons/lu";
@@ -20,6 +20,9 @@ function Securite() {
     dispatch(getcurrent())
   },[dispatch])
 const user=useSelector(state=>state.users.user)
+const handellogout = () => {
+  dispatch(logout(Navigate));
+};
 const submitHandler = (e) => {
   e.preventDefault();
   if(newpassword===password){
@@ -56,8 +59,12 @@ setMsg("le mot de passe n'est pas egaux")
              
               <Link to="/profil/commande" className="bg-menu">
                 <FaRegCreditCard style={{ width: "30px", height: "30px" }} />
-                &nbsp; Mes commandes
+                &nbsp; Mes achats&nbsp;&nbsp;&nbsp; <span className="nb-commande">{user?.commandeachteur?.length}</span>
               </Link> <br />
+              {user?.commandevendeur?.length!==0 ? <Link to="/profil/achat" className="bg-menu" style={{ position: "relative" }}>
+                <FaRegCreditCard style={{ width: "30px", height: "30px" }} />
+                &nbsp; Mes commandes <span className="nb-commande">{user?.commandevendeur?.length}</span>
+              </Link>:null}
               <Link to="/profil/securite" className='bg-menu-p'><GrShieldSecurity style={{width:"30px",height:"30px"}}/>&nbsp; Sécurité</Link><br/>
               <Link className='bg-menu'><IoIosLogOut style={{width:"30px",height:"30px"}}/>&nbsp; Déconnexion</Link><br/>
               </div>

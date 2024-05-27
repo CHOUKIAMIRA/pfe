@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ModifierInfo from './ModifierInfo';
 import { FaRegCreditCard } from "react-icons/fa";
 import { BsFillPencilFill } from "react-icons/bs";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { RiFolderSharedFill } from "react-icons/ri";
 import { FiFolderPlus } from "react-icons/fi";
 import { LuUser2 } from "react-icons/lu";
@@ -22,7 +22,9 @@ function ProfilUser() {
   }, [dispatch]);
 
   const user = useSelector(state => state.users.user);
-
+  const handellogout = () => {
+    dispatch(logout(Navigate));
+  };
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -95,9 +97,13 @@ function ProfilUser() {
               <br />
               <Link to="/profil/commande" className="bg-menu">
                 <FaRegCreditCard style={{ width: "30px", height: "30px" }} />
-                &nbsp; Mes commandes
+                &nbsp; Mes achats <span className="nb-commande">{user?.commandeachteur?.length}</span>
               </Link>
               <br />
+              {user?.commandevendeur?.length!==0 ? <Link to="/profil/achat" className="bg-menu" style={{ position: "relative" }}>
+                <FaRegCreditCard style={{ width: "30px", height: "30px" }} />
+                &nbsp; Mes commandes <span className="nb-commande">{user?.commandevendeur?.length}</span>
+              </Link>:null}
               <Link to="/profil/securite" className='bg-menu'>
                 <GrShieldSecurity style={{ width: "30px", height: "30px" }} />
                 &nbsp; Sécurité

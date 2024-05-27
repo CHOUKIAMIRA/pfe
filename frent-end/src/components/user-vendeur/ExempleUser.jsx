@@ -49,7 +49,7 @@ function ExempleUser({setSearch}) {
   return (
 
     <div>
-      { user.np? <div className="container-navbar">
+      { user?.np? <div className="container-navbar">
         <div className="logo">
           <Link to="/" className="navbar-brand">
             <img
@@ -188,7 +188,7 @@ function ExempleUser({setSearch}) {
             <hr/>
             <div style={{display:"flex",alignItems:"center"}}>
                 <FaRegCreditCard  style={{width:"30px",height:"20px"}}/>
-                <Link to="/profil/commande" style={{textDecoration:"none",color:"black"}}><h6 style={{textAlign:"center",paddingLeft:"10px"}}>Mes commandes</h6></Link>
+                <Link to="/profil/commande" style={{textDecoration:"none",color:"black"}}><h6 style={{textAlign:"center",paddingLeft:"10px"}}>Mes achats</h6></Link>
             </div>
             <hr/>
             <div style={{display:"flex",alignItems:"center"}}>

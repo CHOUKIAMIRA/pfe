@@ -29,22 +29,16 @@ const handlesignUp=(e)=>{
   },navigate))
   
 }
-const msg=useSelector(state=>state.users.msg)
+
 const errors=useSelector(state=>state.errors)
 console.log(errors)
-  useEffect(() => {
-    if (msg) {
-      toast.success(msg, {
-        className: "toast-dar"
-      });
-
-    }
+ 
     if (errors.length>0){
       errors.map(e=>
         toast.error(e.msg)
       )
     }
-  }, [msg,errors]);
+  
   return (
     <div className="pos2">
     <br/>
