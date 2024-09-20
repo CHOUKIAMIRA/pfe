@@ -5,7 +5,6 @@ import { alert_error } from "./errorAction"
 export const registeruser = (data,navigate)=>async(dispatch)=>{
 try {
     const res = await axios.post("http://localhost:8000/register",data)
-    
 dispatch({
     type:REGISTER,
     payload:res.data
@@ -22,6 +21,9 @@ dispatch({
    });
 }
 }
+
+
+
 export const loginuser = (data,navigate)=>async(dispatch)=>{
     try {
         const res = await axios.post("http://localhost:8000/login",data)
@@ -39,6 +41,10 @@ export const loginuser = (data,navigate)=>async(dispatch)=>{
        }); 
     }
     }
+
+
+
+    
     export const getcurrent=()=>async(dispatch)=>{
         const config={
             headers:{

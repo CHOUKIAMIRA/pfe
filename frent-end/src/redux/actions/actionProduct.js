@@ -3,6 +3,7 @@ import { GETPRODUCTS, MYPRODUCTS } from "../actionType/actionTypeProducts"
 export const getProducts =() => async(dispatch)=>{
    try {
    const res=await axios.get("http://localhost:8000/product/get")
+   console.log(res)
       dispatch({
         type:GETPRODUCTS,
         payload:res.data

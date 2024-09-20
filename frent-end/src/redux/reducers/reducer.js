@@ -2,9 +2,9 @@ import { GETCURRENT, GETUSERS, LOGIN, LOGOUT, REGISTER } from "../actionType/act
 
 const initialState = {
  boutique:[],
-    user:{},
-    msg:"",
-    loading: true
+ user:{},
+ msg:"",
+ loading: true
 }
 
 export const reduceruser = (state = initialState, { type, payload }) => {

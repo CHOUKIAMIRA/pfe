@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import imgback from "../assets/signUp.png";
 import { Link } from "react-router-dom";
-
 import "../App.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
